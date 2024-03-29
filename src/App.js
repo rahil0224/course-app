@@ -13,8 +13,11 @@ function App() {
 ]; 
 
   return (
+    <div className='container'>
+      <h1 className='heading'>Course Tracker</h1>
    <FilterableCourses COURSES = {COURSES}/>
-  );
+  </div>
+   );
 }
 
 export default App;
