@@ -1,16 +1,19 @@
 import { useState } from 'react';
+import '../App.css';
 
 export default function FilterableCourses({ COURSES }) {
     const [filterText, setFilterText] = useState('');
     const [inStockOnly, setInStockOnly] = useState(false);
 
     return (
-        <div>
+        <div className='searchcenter'>
             <SearchBar
                 filterText={filterText}
                 inStockOnly={inStockOnly}
                 onFilterTextChange={setFilterText}
-                onInStockOnlyChange={setInStockOnly} />
+                onInStockOnlyChange={setInStockOnly}
+                className="searchUI"
+                />
             <ProductTable
                 COURSES={COURSES}
                 filterText={filterText}
@@ -21,25 +24,25 @@ export default function FilterableCourses({ COURSES }) {
 
 function ProductCategoryRow({ category }) {
     return (
-        <tr>
-            <th colSpan="2">
-                {category}
-            </th>
-        </tr>
+        <div className='catcolor'>
+             {category}
+        </div>
     );
 }
 
 function ProductRow({ COURSES }) {
     const name = COURSES.stocked ? COURSES.name :
-        <span style={{ color: 'red' }}>
+        <span style={{ color: 'black' }}>
             {COURSES.name}
         </span>;
 
     return (
-        <tr>
-            <td>{name}</td>
-            <td>{COURSES.price}</td>
-        </tr>
+        
+            <div className='nameprice'>
+            <div >{name}</div>
+            <div>{COURSES.price}</div>
+            </div>
+        
     );
 }
 
@@ -74,15 +77,13 @@ function ProductTable({ COURSES, filterText, inStockOnly }) {
     });
 
     return (
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Price</th>
-                </tr>
-            </thead>
-            <tbody>{rows}</tbody>
-        </table>
+        <>
+        <div className='nameprice'>
+        <div>Name</div>
+        <div className=''>Price</div>
+        </div>
+        <div>{rows}</div>
+        </>
     );
 }
 
@@ -94,18 +95,25 @@ function SearchBar({
 }) {
     return (
         <form>
+            <div className='inputfield'>
+            <span>Search</span>
             <input
                 type="text"
-                value={filterText} placeholder="Search..."
+                className='searchUI'
+                value={filterText} placeholder="Search Course"
                 onChange={(e) => onFilterTextChange(e.target.value)} />
+            </div>
+            <div className='textinput'>
             <label>
                 <input
+                   
                     type="checkbox"
                     checked={inStockOnly}
                     onChange={(e) => onInStockOnlyChange(e.target.checked)} />
                 {' '}
                 Only show products in stock
             </label>
+            </div>
         </form>
     );
 }
